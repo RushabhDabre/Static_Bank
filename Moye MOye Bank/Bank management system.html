@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank</title>
+    <script>
+        function validateData(){
+            var lnmae = document.f1.lnmae.value;
+            var fname = document.f1.fname.value;
+            var namePattern = /^[A-Za-z]{2,}$/
+            if(!namePattern.test(lnmae)){
+                alert("Moye Moye: Last Name Should must Contain only Alphabet");
+                document.f1.lnmae.value="";
+                document.f1.lnmae.focus();
+                return;
+            }
+            if(!namePattern.test(fname)){
+                alert("Moye Moye: First Name Should must Contain only Alphabet");
+                document.f1.fname.value="";
+                document.f1.fname.focus();
+                return;
+            }
+
+            var uid = document.f1.uid.value;
+            var uidpattern = /^[\w.-]{8,15}$/
+            if(!uidpattern.test(uid)){
+                alert("Moye Moye: Invalid username");
+                document.f1.uid.value="";
+                document.f1.uid.focus();
+                return;
+            }
+
+            var emailId = document.f1.email.value;
+            var emailPattern = /^[\w.-_#]{6,15}@[\w]{4,8}.[a-z]{2,3}$/;
+            if(!emailPattern.test(emailId)){
+                alert("Moye Moye: Invalid Email Id!!");
+                document.f1.email.value="";
+                document.f1.email.focus();
+                return;
+            }
+
+            var num = document.f1.accno.value;
+            var credit = document.f1.ccno.value
+            var numpattern = /^[\d]{10}$/;
+            if(!numpattern.test(num)){
+                alert("Moye Moye: Account Number must have 10 values");
+                document.f1.accno.value="";
+                document.f1.accno.focus();
+                return;
+            }
+            if(!numpattern.test(credit)){
+                alert("Moye Moye: Credit Card Number must have 10 values");
+                document.f1.ccno.value="";
+                document.f1.ccno.focus();
+                return;
+            }
+            
+            var pass = document.f1.pwd.value;
+            var passStrength = document.getElementById("passerr");
+            // (?=.*[expression]) ensures the presence 
+            var passcheck = /(?=.*[A-Z]){1,}(?=.*[a-z]{1,})(?=.*\d)(?=.*\D)/
+            if(!passcheck.test(pass)){
+                alert("Moye Moye: Password Must contain atleast 1 UpperCase 1 LowerCase, 1 numeric and 1 not numberic charachter!!");
+                document.f1.pwd.value="";
+                document.f1.pwd.focus();
+                return;
+            }
+            if(passStrength.innerHTML == "Week Password"){
+                alert("Moye Moye: Password is too Small");
+                document.f1.pwd.value="";
+                document.f1.pwd.focus();
+                return;
+            }
+            
+            var rpass = document.f1.rpwd.value;
+            if(rpass != pass){
+                alert("Moye Moye: Both PassWord Must Match!!");
+                document.f1.rpwd.value="";
+                document.f1.rpwd.focus();
+                return;
+            }
+        }
+
+        function strongWeek(){
+            var pass = document.f1.pwd.value;
+
+            var passStrength = document.getElementById("passerr");
+            
+            if(pass.length<=6){
+                passStrength.innerHTML = "Week Password";
+                passStrength.style.color = "Red";
+            }else if(pass.length>6){
+                passStrength.innerHTML = "Strong Password"
+                passStrength.style.color = "Green";
+            }
+        }
+
+    </script>
+    <header style="background-color: black; color: White;">
+        <table>
+            <td><h1>Moje More Bank</h1></td>
+            <td><img src="src/bank.png" alt="vbank" width="50" height="50"/></td>
+        </table>
+    </header>
+</head>
+<body style="background-color: aqua;">
+    <div style="background-color: aliceblue; padding: 1cm; margin: 1cm; position: absolute;" >
+        <h1>NEW User Registration</h1>
+        <br/>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus harum necessitatibus sint assumenda ea aperiam nesciunt impedit consectetur odio. Dolore neque porro et accusantium fugit quasi odit atque asperiores beatae.</p>
+        <br/>
+        <form action="post" name="f1">
+            <table>
+                <tr>
+                    <td><label>Last Name: </label></td>
+                    <td><input type="text" id="lnmae"/></td>
+                </tr>
+                <tr>
+                    <td><label>First Name: </label></td>
+                    <td><input type="text" id="fname"/></td>
+                </tr>
+               
+                <tr>
+                    <td><label>User Id: </label></td>
+                    <td><input type="text" id="uid"/></td>
+                </tr>
+                <tr>
+                    <td><label >Email Address: </label></td>
+                    <td><input type="email" id="email"/></td>
+                </tr>
+                <tr>
+                    <td><label>Account Number: </label></td>
+                    <td><input type="number" id="accno"/></td>
+                </tr>
+                <tr>
+                    <td><label >Credit Card Number: </label></td>
+                    <td><input type="number" id="ccno"/></td>
+                </tr>
+                <tr>
+                    <td><label >Online Password: </label></td>
+                    <td><input type="Password" id="pwd" oninput="strongWeek()"/></td>
+                    <td><span id="passerr" style="color: red;"></span></td>
+                </tr>
+                <tr>
+                    <td><label>Confirm Password: </label></td>
+                    <td><input type="Password"id="rpwd"/></td>
+                    <span id="rpasserr" style="color: red;"></span>
+                </tr>
+                <tr>
+                    <td><input type="button" value="LOGIN" onclick="validateData()"/></td>
+                    <td><input type="reset" value="CLEAR"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
